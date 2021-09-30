@@ -56,12 +56,23 @@ def import_audio_signal(filename):
     return fs, signal1, signal2
 
 
-def cloud_from_signal(signal, window_size, pca_dim=3):
+def cloud_from_signal(signal, window_size, umap_dim=3):
     sw = signal_sw(signal, window_size)
-    cloud = dim_reduction(sw, pca_dim)
+    cloud = dim_reduction(sw, umap_dim)
     return cloud
 
 
+def dim_reduction(X_transform, umap_dim, n_neighbors=15):
+    red = umap.UMAP(a=None, angular_rp_forest=False, b=None,
+                     force_approximation_algorithm=False, init='spectral', learning_rate=1.0,
+                     local_connectivity=1.0, low_memory=False, metric='euclidean',
+                     metric_kwds=None, min_dist=0.1, n_components=umap_dim, n_epochs=None,
+                     n_neighbors=n_neighbors, negative_sample_rate=5, output_metric='euclidean',
+                     output_metric_kwds=None, random_state=42, repulsion_strength=1.0,
+                     set_op_mix_ratio=1.0, spread=1.0, target_metric='categorical',
+                     target_metric_kwds=None, target_n_neighbors=-1, target_weight=0.5,
+                     transform_queue_size=4.0, transform_seed=42, unique=False, verbose=False)
+    return red.fit_transform(X_transform)
 def normalize_3dcloud(cloud):
     cloud = (cloud - np.mean(cloud)) / np.max(np.max(abs(cloud)))
     return cloud
