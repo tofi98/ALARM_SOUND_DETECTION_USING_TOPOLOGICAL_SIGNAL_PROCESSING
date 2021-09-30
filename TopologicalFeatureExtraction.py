@@ -1,3 +1,36 @@
+def bottleneck_diagram_dist(diag1, diag2, order):
+    dg1 = [y for (x, y) in diag1 if x == order]
+    dg2 = [y for (x, y) in diag2 if x == order]
+
+    return gd.bottleneck_distance(dg1, dg2)
+
+
+def diagram_threshold (diag,threshold ):
+    return [(x,y) for (x,y) in diag if abs(y[1] - y[0])> threshold]
+# scoring
+
+
+def ps_scoring(diag):
+    try:
+        return max([x[1][1] - x[1][0] if x[0] == 1 else 0 for x in diag])
+    except:
+        return 0
+
+def qps_scoring(diag):
+    try:
+        Q2_max = max([x[1][1] - x[1][0] if x[0] == 2 else 0 for x in diag])
+        Ps_max = max([x[1][1] - x[1][0] if x[0] == 1 else 0 for x in diag])
+        Ps_second_max = max([x[1][1] - x[1][0] if x[0] == 1 and x[1][1] - x[1][0] != Ps_max else 0 for x in diag])
+        return math.sqrt(Q2_max * Ps_second_max / 3)
+    except:
+        return 0
+    
+def two_2ndHomology_score(diag):
+    Q2_max = max([x[1][1] - x[1][0] if x[0] == 2 else 0 for x in diag])
+    Q2_second_max = max([x[1][1] - x[1][0] if x[0] == 2 and x[1][1] - x[1][0] != Q2_max else 0 for x in diag])
+    return Q2_second_max * Q2_max
+
+
 def get_features(diag):
 
     features_array = []
