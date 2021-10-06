@@ -20,9 +20,13 @@ The file "diagramFromAudio.py" includes the functions that used to create persis
 - "get_betti_num" calculate the betti numbers of given Alpha complex  
 
 The file "TopologicalFeatureExtraction.py" includes the functions that used to extract the topological features from a persistence diagram.
-- ""
--
--
+- "bottleneck_diagram_dist" calculates the bottleneck distance beteween two diagrams
+- "diagram_threshold" eliminates cycles with lifespan smaller than given threshold 
+- "ps_scoring" calculates the Periodity Score (PS)
+- "qps_scoring" calculates the Quasi Periodity Score (QPS)
+- "two_2ndHomology_score" calculates the Frequency Shift Score (FSS)
+- "get_features" extracts the topological features from given diagram
+ 
 
 The DSP features has been extracted with the code used in the paper "Detection of alarm sounds in noisy environments" (Yesurun, Carmel and Moshe, 2017).
 The results of the ReliefF algorithm will be uploaded until October 10th, duo to small technical issue.
